@@ -1,0 +1,7 @@
+#lang racket
+;Ejercicio 1
+
+(define (porcen-vector lista)
+
+
+  )
