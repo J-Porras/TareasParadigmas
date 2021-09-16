@@ -1,126 +1,154 @@
-install.packages("knitr",dependencies = T)
-install.packages("rmarkdown", dependencies = T)
+---
+title: "Tarea3"
+author: "Jose Porras MuÃ±oz"
+date: "8/9/2021"
+output: html_document
+---
 
-#Tarea 3 R Jose Andres Porras Muñoz
-#Paradigmas de Programacion
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 
-#Pregunta 1a
+```
+```{r, include=FALSE}
+options(width = 60)
+local({
+  hook_output <- knitr::knit_hooks$get('output')
+  knitr::knit_hooks$set(output = function(x, options) {
+    if (!is.null(options$max.height)) options$attr.output <- c(
+      options$attr.output,
+      sprintf('style="max-height: %s;"', options$max.height)
+    )
+    hook_output(x, options)
+  })
+})
+```
+
+### Pregunta 1a
+```{r}
 vector.x <- c(7,-5,31,-2,-9,10,0,18)
 vector.y <- c(2,2,-3,1,99,-10,10,-7)
-
-#Pregunta 1b
+```
+### Pregunta 1b
+```{r}
 mean(vector.x)
 var(vector.x)
 sqrt(vector.x[vector.x>0])
 sd(vector.x)
-
-#Pregunta 1c
+```
+### Pregunta 1c
+```{r}
 mean(vector.y)
 var(vector.y)
 sqrt(vector.y[vector.y>0])
 sd(vector.y)
+```
 
-
-
-#Pregunta 1d
+### Pregunta 1d
+```{r}
 cor(vector.x,vector.y)
-
-#Pregunta 1e
+```
+### Pregunta 1e
+```{r}
 vector.x[2:7]
-
-#Pregunta 1f
+```
+### Pregunta 1f
+```{r}
 vector.y[-c(2,7)]
-
-#Pregunta1g
+```
+### Pregunta 1g
+```{r}
 vector.y[vector.y < -3 | vector.y > 10]
-#Pregunta 1h
-
+```
+### Pregunta 1h
+```{r}
 vector.x[vector.x > 0 & ((vector.x %% 2) == 0)]
+```
 
-
-#Pregunta 2
+### Pregunta 2
+```{r}
 A = matrix(c(1,2,3,4,5,6,7,8,9,10,11,12),nrow=4,"byrow"="true")
 A
-#Explicaciones
+```
+
+### Explicaciones
 
 
-#Lee la primera fila y de la columna 1 a 3
+###  Lee la primera fila y de la columna 1 a 3
+```{r}
 A[1,1:3]
-
-#Lee de la fila 1 a la 4 y solo la columna 2
+```
+###  Lee de la fila 1 a la 4 y solo la columna 2
+```{r}
 A[1:4,2]
+```
 
-
-#Lee la fila y columna 3
+###  Lee la fila y columna 
+```{r}
 A[3,3]
-
-#Lee el elemento 11 leyendo por columnas y 
-#de manera descendente
+```
+###  Lee el elemento 11 leyendo por columnas y 
+###  de manera descendente
+```{r}
 A[11]
-
-#Lee el elemento 20 pero no existe
+```
+###  Lee el elemento 20 pero no existe
+```{r}
 A[20]
+```
+###  Lee la fila 5 que no existe y la columna 4
+```{r,error=T}
+A[5,4]
+```
+###  Lee el elemento 1,1,1 de una matriz de 3 dimensiones, da error porque la matriz A es de 2 dimensiones
+```{r, error = T}
+A[1,1,1]
+```
 
-#Lee la fila 5 que no existe y la columna 4
-#A[5,4]
-
-#Lee el elemento 1,1,1 de una matriz de 3 dimensiones, da error porque la matriz es de 2 dimensiones
-
-#A[1,1,1]
-
-#Pregunta 3
-
-# as.matrix(x) intenta convertir el parametro en una matriz 
-
-mi_vector <- c("a", "b", "c")
-as.matrix(mi_vector)
-
-# as.data.frame(x) intenta convertir el parametro en un data frame tratando de conservar los datos, nombres
-# de columnas entre otros
-mi_matriz <- matrix(1:4, nrow = 2)
-
-as.data.frame(mi_matriz)
-
-#Pregunta 4
-
+### Pregunta 4
+```{r}
 nivel.educ <- factor(c("Lic","Bach","Bach","Bach","Dr","MSc"),
                      levels = c ("Lic","Bach","Dr","MSc"))
 
 datos <- data.frame(Peso = c(56,67,55,57,87,48), Edad = c(28,23,19,18,57,13), "Nivel Educativo" = nivel.educ)
 
 datos
-
-
-#Pregunta 5
-
-vector.z <- c(2,-5,4,6,-2,8)
+```
+### Pregunta 5
+```{r}
+vector.x <- c(2,-5,4,6,-2,8)
+vector.x
+```
+```{r}
+vector.y <- vector.x[vector.x>0]
+vector.y
+```
+```{r}
+vector.z <- vector.x[vector.x<0]
 vector.z
+```
+```{r}
+vector.v <- vector.x[-1]
+vector.v
+```
+```{r}
+vector.w <- vector.x[c(T,F)]
+vector.w
+```
 
-vector.a <- vector.z[vector.z>0]
-vector.a
+### Pregunta 6
 
-vector.b <- vector.z[vector.z<0]
-vector.b
-
-vector.c <- vector.z[-1]
-vector.c
-
-vector.d <- vector.z[c(T,F)]
-vector.d
-
-
-#Pregunta 6
-
-setwd("C:/Users/Andrés/Porras/UNIVERSIDAD NACIONAL/Carrera/Paradigmas Programacion/Tareas/Tarea3")
+```{r}
+setwd("C:/Users/AndrÃ©s/Porras/UNIVERSIDAD NACIONAL/Carrera/Paradigmas Programacion/Tareas/Tarea3")
 datos.portabilidad <- read.table('potabilidad_V2.csv',
                     header=TRUE, sep=',',dec='.',row.names=1)
-
+```
+```{r,max.height = "150px"}
 dim(datos.portabilidad)
 
 datos.portabilidad[,c(1,2)]
 
 summary(datos.portabilidad)
-
+  
 str(datos.portabilidad)
 
 mean(datos.portabilidad[,1])
@@ -131,12 +159,18 @@ sd(datos.portabilidad[,1])
 
 sd(datos.portabilidad[,2])
 
+Datos <- read.table('potabilidad_V2.csv',
+header=TRUE, sep=';',dec=',',row.names=1)
+summary(Datos)
 
-#al leer el archivo con sep=';' los datos se agrupan de manera incorrecta y a
-#la hora de leer el data frame no puede leer los numeros de manera correcta
+```
+#### al leer el archivo con sep=';' los datos se agrupan de manera incorrecta y a
+#### la hora de leer el data frame no puede leer los numeros de manera correcta
 
 
-#Pregunta 7
+### Pregunta 7
+
+```{r,max.height = "150px"}
 datos.aheart <- read.table('SAheart.csv',
                                  header=TRUE, sep=';',dec='.',row.names=NULL)
 
@@ -152,75 +186,88 @@ cor(datos.aheart[,2], datos.aheart[,8])
 
 
 colSums(datos.aheart[-c(5,10)])
-
+```
 #### Sbp
+```{r}
 
 min(datos.aheart[,1])
 max(datos.aheart[,1])
 
+```
 #### Tobacco
+```{r}
 min(datos.aheart[,2])
 max(datos.aheart[,2])
 
-
+```
 #### ldl
+```{r}
 min(datos.aheart[,3])
 max(datos.aheart[,3])
-
+```
 
 #### adiposity
+```{r}
 min(datos.aheart[,4])
 max(datos.aheart[,4])
-
+```
 #### Typea
+```{r}
 min(datos.aheart[,6])
 max(datos.aheart[,6])
-
+```
 
 #### Obesity
+```{r}
 min(datos.aheart[,7])
 max(datos.aheart[,7])
-
+```
 
 #### Alcohol
+```{r}
 min(datos.aheart[,8])
 max(datos.aheart[,8])
-
+```
 #### Age
-
+```{r}
 min(datos.aheart[,9])
 max(datos.aheart[,9])
+```
 
-
-###Mediana y Media de variables cuantitvas
+### Mediana y Media de variables cuantitvas
+```{r}
 apply(datos.aheart[,c(1,2,3,4,6,7,8,9)],2,median)
 
 colMeans(datos.aheart[,c(1,2,3,4,6,7,8,9)])
-
+```
 
 
 #### Chd
-
+```{r}
 sum(datos.aheart[,10]=="Si")
 
 sum(datos.aheart[,10]=="No")
 
+```
 
 
 
-#Pregunta 8
-
+### Pregunta 8
+```{r}
 num.aleatorios <- function(){
   random.numbers <- sample(1:500, 200)
   random.vector<- random.numbers[random.numbers >= 50 | random.numbers <= 450]
   return (length(random.vector))
 }
+```
+```{r}
+num.aleatorios()
+num.aleatorios()
+num.aleatorios()
+```
 
-num.aleatorios()
-num.aleatorios()
-num.aleatorios()
-
-#Pregunta 9
+### Pregunta 9
+```{r}
 costo.llamada <- function(t){
   if(t<1){
     return (0.4)
@@ -229,13 +276,16 @@ costo.llamada <- function(t){
     return (0.4 + (t - 1)/4)
   }
 }
-
-
+```
+```{r}
 costo.llamada(1)
 costo.llamada(2)
 costo.llamada(7)
+```
 
-#Pregunta 10
+
+### Pregunta 10
+```{r}
 calc.traza<- function(matriz){
   if(nrow(matriz) ==  ncol(matriz)){
     return (sum(diag(matriz)))
@@ -243,12 +293,19 @@ calc.traza<- function(matriz){
   return (0)
   
 }
-
+```
+```{r}
 calc.traza(matrix(c(9,30,4,1,30,-1,4,12,-2),nrow=3))
 calc.traza(matrix(c(9,8,4,1,30,-8,4,12,-2,4,8,10,99,0,5,-10),nrow=4))
 calc.traza(matrix(c(9,-3,4,1,15,-8,4,12,-2,8,1,9,5,6),nrow=2))
+```
 
-#Pregunta  11
+
+
+
+
+### Pregunta  11
+```{r}
 fibonacci.n <-function(n){
   contador = 2;
   n1 = 0
@@ -272,13 +329,19 @@ fibonacci.n <-function(n){
   }
   
 }
-
+```
+```{r}
 fibonacci.n(7)
 fibonacci.n(1)
 fibonacci.n(12)
+```
 
 
-#Pregunta 12
+
+
+### Pregunta 12
+```{r}
+
 entero.mayor <- function(x){
   numero = 0
   while( (numero*numero) < x){
@@ -287,23 +350,28 @@ entero.mayor <- function(x){
   return (numero-1)
 }
 
-
+```
+```{r}
 entero.mayor(12)
 entero.mayor(100)
 entero.mayor(1)
+```
 
-#Pregunta 13
 
+### Pregunta 13
+```{r}
 nombres <- c("Jose","Andres","Pablo","Joaquin","Oscar","Yeikol","Steve","Alex","Agnes","Willy")
-datos.alumnos = data.frame(Edad = sample(12:21, 10),Año.de.Nacimiento =sample(2000:2009, 10),
-                           Teléfono = sample(10000000:99999999,10))
+datos.alumnos = data.frame(Edad = sample(12:21, 10),AÃ±o.de.Nacimiento =sample(2000:2009, 10),
+                           TelÃ©fono = sample(10000000:99999999,10))
 row.names(datos.alumnos) <- nombres
 datos.alumnos
+```
 
 
 
-#Pregunta 14
+### Pregunta 14
 
+```{r}
 
 divisible.3<-function(dataframe){
   cantidad = 0
@@ -315,6 +383,8 @@ divisible.3<-function(dataframe){
   }
   return (cantidad)
 }
+```
+```{r}
 
 df = data.frame(replicate(3,sample(0:999,3,rep=TRUE)))
 df
@@ -325,7 +395,11 @@ divisible.3(df1)
 df2 = data.frame(replicate(3,sample(0:999,3,rep=TRUE)))
 df2
 divisible.3(df2)
+```
+
+
 #Pregunta 15
+```{r}
 
 output.data <- function(dataframe,col1,col2){
   lista <- list(columna1 = colnames(dataframe[col1]),columna2 = colnames(dataframe[col2]),
@@ -333,14 +407,21 @@ output.data <- function(dataframe,col1,col2){
                 )
   return (lista)
 }
+```
 
-
+```{r}
 
 
 output.data(data.frame(replicate(3,sample(0:999,3,rep=TRUE))),1,2)
 output.data(data.frame(replicate(3,sample(0:999,3,rep=TRUE))),1,3)
 output.data(data.frame(replicate(3,sample(0:999,3,rep=TRUE))),2,3)
-#Pregunta 16
+```
+
+
+
+
+### Pregunta 16
+```{r}
 
 U <- function(n){
   if(n==0) {
@@ -361,16 +442,19 @@ U <- function(n){
     }
   }
 }
-
+```
+```{r}
 
 U(5)
 U(2)
 U(9)
-#Pregunta 17
+```
 
+### Pregunta 17
+
+```{r}
 
 collatz <- function(n) {
-  # n is the initial number
   if(n == 1){
     return (0)
   }
@@ -382,14 +466,17 @@ collatz <- function(n) {
     }
   }
 }
+```
+```{r}
 
 collatz(16)
 collatz(12)
 collatz(31)
+```
 
 
-
-# Pregunta 18
+### Pregunta 18
+```{r}
 
 es.factor <- function(x, k){
   if((x %% k) == 0){
@@ -398,8 +485,6 @@ es.factor <- function(x, k){
   return (FALSE)
   
 }
-
-
 
 
 
@@ -431,13 +516,10 @@ clasificacion <- function(n){
     }
   }
 }
-
+```
+```{r}
 
 clasificacion(6)
 clasificacion(47)
 clasificacion(12)
-
-
-
-
-
+```
