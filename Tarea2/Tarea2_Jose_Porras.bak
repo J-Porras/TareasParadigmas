@@ -194,15 +194,15 @@
 
 
 
-;Ejercicio 4, corregida
+;Ejercicio 4
 
-(define (divisibles L x)
-  (divisibles-iter L x '() '()))
-
-(define (divisibles-iter L x si no)
-  (if (null? L) (list si no)
-      (if (= (remainder (car L) x) 0) (divisibles-iter (cdr L) x (cons (car L) si) no)
-          (divisibles-iter (cdr L) x si (cons (car L) no)))))
+(define (divisibles lista x)
+  (cond
+    [(null? lista) '()]
+    [( = (remainder (car lista) x) )  (list (list (car lista) (divisibles (cdr lista) x)) (list '()))]
+    [(not( = (remainder (car lista) x))) (list (list '() ) (list(car lista ) (divisibles (cdr lista) x) )) ]
+    )
+  )
 (write "Ejercicio 4")
 (newline)
 (divisibles '( 2 3 4 5 6 7 8 9) 2)
@@ -241,19 +241,30 @@
 (resta '(7 1 4 3 2 4 2 4 6) '(1 7 3 2))
 (resta '(7 1 4 3 2 4 2 4 6) '(5 5 5 5))
 
-;Ejercicio 6,mala
+;Ejercicio 6
 
-(define (pares L1 L2)
-  (if (null? L1) '()
-      (cons (list (car L1) (car L2)) (pares (cdr L1) (cdr L2)))))
+(define (longitud L)
+(if (null? L)
+    0
+    (+ 1 (longitud (cdr L)))))
+
+
+(define (crea-pares lista1 lista2)
+  (cond
+    [(>= 0 (longitud lista1)) '()]
+    [(>= 0 (longitud lista2)) '()]
+    [ (= (longitud lista1) (longitud lista2)) (cons (car lista1) (cons (car lista2) (crea-pares (cdr lista1) (cdr lista2))))]
+    [else '()]
+    )
+  )
 
 (write "Ejercicio 6")
 (newline)
-(pares '(9 8 ) '(1 2 ))
-(pares '(9 8 7 6 5 ) '(1 2 3))
+(crea-pares '(9 8 ) '(1 2 ))
+(crea-pares '(9 8 7 6 5 ) '(1 2 3))
 
-(pares '(9 8 7 6 5 ) '(1 2 3 4 5))
-;Ejercicio 7,mala?
+(crea-pares '(9 8 7 6 5 ) '(1 2 3 4 5))
+;Ejercicio 7
 
 (define (es-factor? n k)
   ( = (remainder n k) 0)
@@ -273,7 +284,7 @@
 (factores 36 2)
 (factores 88 2)
 
-;Ejercicio 8, mala
+;Ejercicio 8
 (write "Ejercicio 8")
 (newline)
 
@@ -300,27 +311,4 @@
   )
 
 (resultado-vuelto)
-;8 corregida
-
-(define (ejercicio-8)
-  
-  (define (es-menor? x y)
-    (< x y))
-  
-  (define (vuelto x)
-    (vuelto-iter x '(500 100 50 25 10 5 1) '()))
-  
-  (define (vuelto-iter x L R)
-    (if (<= x 0) R
-        (if (es-menor? x (car L)) (vuelto-iter x (cdr L) R)
-            (vuelto-iter (- x (car L)) L (cons (car L) R)))))
-  
-  (define (resultado)
-    (newline)
-    (write "Digite el vuelto a dar")
-    (newline)
-    (vuelto (read)))
-  (resultado))
-
-(ejercicio-8)
 

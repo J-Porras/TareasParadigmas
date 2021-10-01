@@ -1,0 +1,135 @@
+alumno(peter, 9).
+alumno(paul, 10).
+alumno(ana, 9).
+alumno(susan, 9).
+
+%?- alumno(P1, 9), alumno(P2, 10), P1 = peter,
+write(P1),write(P2),nl.
+
+
+
+%Pregunta2
+
+
+cnand(0,0,1).
+cnand(0,1,1).
+cnand(1,0,1).
+cnand(1,1,0).
+cxor(X,Y,Z):-
+    cnand(X,X,N1),cnand(Y,Y,N2),
+    cnand(Y,N1,N3),cnand(X,N2,N4),
+    cnand(N3,N4,Z).
+
+%Respuesta
+% ?- cxor(I1,I2,S),
+%    write(I1), write(" "), 
+%   write(I2), write(" "),
+%   write(S), write(" "), nl,
+%    write("-----"),nl,fail.
+
+
+
+
+masculino(abraham).
+masculino(herbert).
+masculino(homero).
+masculino(clancy).
+masculino(bart).
+
+femenino(mona).
+femenino(jacqueline).
+femenino(selma).
+femenino(patty).
+femenino(marge).
+femenino(lisa).
+femenino(maggie).
+femenino(ling).
+
+madre(lisa,marge).
+madre(bart,marge).
+madre(maggie,marge).
+madre(homero,mona).
+madre(herbert,mona).
+madre(marge,jacqueline).
+madre(patty,jacqueline).
+madre(selma,jacqueline).
+
+padre(lisa,homero).
+padre(bart,homero).
+padre(maggie,homero).
+padre(homero,abraham).
+padre(herbet,abraham).
+padre(marge,clancy).
+padre(patty,clancy).
+padre(selma,clancy).
+
+
+
+
+
+
+padres(X,Y) :- madre(X,Y).
+padres(X,Y) :- padre(X,Y).
+
+hermano(X,Y) :- /* El hermano of X es Y si */
+	masculino(Y) , /* Y es masculino y */
+	padres(X,P) , /* los padres de X son P y */
+	padres(Y,P) , /* los padres de Y son P y */
+	not(X=Y). /* X y Y no son el mismo */
+
+hermana(X,Y) :- /* La hermana de X es Y si */
+	femenino(Y) , /* Y es femenino y */
+	padres(X,P) , /* los padres de X son P y */
+	padres(Y,P) , /* los padres de Y son P y */
+	not(X=Y). /* X y Y no son el mismo */
+
+tiomat(X,U) :-             /* El tio de X es U si      */
+  madre(X,P) ,        	/* la madre de X es P y     */
+  hermano(P,U).   	/* el hermano de P es U.    */
+
+tiopat(X,U) :-             /* el tio de X es U si      */
+  padre(X,P) ,          /* el padre de X es P y     */
+  hermano(P,U).         /* el hermano of P es U     */
+
+abuelomat(X,G) :-        	/* El abuelo de X es G si   */
+   madre(X,P),             /* si el padre de P es G    */
+   padre(P,G).       	/* y la madre de X es P.    */
+
+abuelamat(X,G) :-        	/* El abuelo de X es G si   */
+  madre(P,G) ,      	/* si el padre de P es G    */
+  madre(X,P).       	/* y la madre de X es P.    */
+
+
+abuelopat(X,G) :-         	/* El abuelo of X es G si   */
+  padre(X,P) ,       	/* el padre de X es P       */
+  padre(P,G).        	/* el padre de P es G       */
+
+abuelapat(X,G) :-         	/* El abuelo of X es G si   */
+  padre(X,P) ,       	/* el padre de X es P       */
+  madre(P,G).        	/* el padre de P es G    */
+
+
+primo(X,Y):-
+	masculino(Y),
+	padres(X,P),
+	hermano(P,Q),
+	padres(Y,Q).
+
+
+primo(X,Y):-
+	femenino(Y),
+	padres(X,P),
+	hermano(P,Q),
+	padres(Y,Q).
+
+
+% ?-abuelomat(lisa,clancy),nl.
+% ?-abuelopat(lisa,abraham),nl.
+% ?-hermano(lisa,bart),nl.
+
+
+
+
+
+
+
