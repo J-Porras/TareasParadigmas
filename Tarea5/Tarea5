@@ -4,7 +4,7 @@ alumno(ana, 9).
 alumno(susan, 9).
 
 %?- alumno(P1, 9), alumno(P2, 10), P1 = peter,
-write(P1),write(P2),nl.
+%write(P1),write(P2),nl.
 
 
 
@@ -20,16 +20,40 @@ cxor(X,Y,Z):-
     cnand(Y,N1,N3),cnand(X,N2,N4),
     cnand(N3,N4,Z).
 
-%Respuesta
-% ?- cxor(I1,I2,S),
-%    write(I1), write(" "), 
-%   write(I2), write(" "),
-%   write(S), write(" "), nl,
-%    write("-----"),nl,fail.
+%Respuesta 2
+/*
+ ?- cxor(I1,I2,S),
+    write(I1), write(" "), 
+   write(I2), write(" "),
+   write(S), write(" "), nl,
+    write("-----"),nl,fail.*/
 
 
+%Pregunta 3
+cnot(1,0). cnot(0,1).
+cand(0,0,0). cand(0,1,0). cand(1,0,0). cand(1,1,1).
+cor(0,0,0). cor(0,1,1). cor(1,0,1). cor(1,1,1).
+
+paridad(A,B,C,D,Z):-
+	cnot(D,N1), cnot(C,N2),
+	cand(B,C,N3),cor(C,A,N4),cand(B,B,N5),
+	cand(N2,N3,N10),cnot(N4,N6),cnot(N5,N7),
+	cnot(N10,N11),cand(N6,N7,N8),cand(N11,N1,N12),
+	cnot(N8,N9),cnot(N12,N13),
+	cor(N13,N9,Z).
+/* Respuesta 3
+?-paridad(I1,I2,I3,I4,S),
+	write(I1), write(" "),
+	write(I2), write(" "),
+	write(I3), write(" "),
+	write(I4), write(" "),
+	write("-> "),write(S) ,nl,fail.
+*/
+
+/*--------------------*/
 
 
+%Pregunta 4
 masculino(abraham).
 masculino(herbert).
 masculino(homero).
@@ -122,14 +146,36 @@ primo(X,Y):-
 	hermano(P,Q),
 	padres(Y,Q).
 
-
-% ?-abuelomat(lisa,clancy),nl.
+%Respuesta 4
+%?-abuelomat(lisa,bart),nl.
 % ?-abuelopat(lisa,abraham),nl.
 % ?-hermano(lisa,bart),nl.
 
 
 
+%Pregunta 5
+
+
+lee_autor(autor(Nombre,Apellido,Nacionalidad)):-
+write("cual es el nombre del autor?"),read(Nombre),nl,
+write("cual es el apellido del autor?"),read(Apellido),nl,
+write("cual es la nacionalidad del autor?"),read(Nacionalidad),nl.
+
+lee_fecha(fecha(DD,MM,AA)):-
+write("cual año es?"),read(DD),nl,
+write("cual mes es ?"),read(MM),nl,
+write("cual dia es?"),read(AA),nl.
 
 
 
+lee_literatura_l(literatura(libros(Titulo,autor(Nombre,Apellido,Nacionalidad),fecha(DD,MM,AA)))):-
+write("Cual es el Titulo del Libro? "), read(Titulo),nl,
+lee_autor(Nombre,Apellido,Nacionalidad),
+lee_fecha(DD,MM,AA),nl.
+
+
+lee_literatura_r(literatura(libros(Titulo,autor(Nombre,Apellido,Nacionalidad),Numero))):-
+write("Cual es el Titulo del Libro? "), read(Titulo),nl,
+lee_autor(Nombre,Apellido,Nacionalidad),nl,
+lee_fecha("Cual numero de revista es?"),read(Numero),nl.
 
