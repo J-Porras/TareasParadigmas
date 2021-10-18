@@ -178,4 +178,20 @@ lee_literatura_r(literatura(libros(Titulo,autor(Nombre,Apellido,Nacionalidad),Nu
 write("Cual es el Titulo del Libro? "), read(Titulo),nl,
 lee_autor(Nombre,Apellido,Nacionalidad),nl,
 lee_fecha("Cual numero de revista es?"),read(Numero),nl.
+/*Respuestas 5*/
+/*
+
+run:-lee_literatura_l(E),nl,write(E),nl,nl,
+write("Desea continuar(s/n)?"),read(Ch),,Ch='n'.
+run:-nl,write("Digite los datos de otro libro"),nl,run.
+
+?-run.*/
+
+/*
+run:-lee_literatura_r(E),nl,write(E),nl,nl,
+write("Desea continuar(s/n)?"),read(Ch),,Ch='n'.
+run:-nl,write("Digite los datos de otra revista"),nl,run.
+
+?-run.*/
+
 
