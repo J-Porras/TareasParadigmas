@@ -55,8 +55,6 @@ def diaSemana(num):
     elif num == 7:
         print("Hoy es sabado")
         
-        
-
 diaSemana(4)        
 diaSemana(2)        
 diaSemana(9)        
