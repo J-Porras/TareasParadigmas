@@ -5,7 +5,7 @@ Created on Wed Oct 20 01:02:00 2021
 @author: Porras
 """
 import numpy
-print("Pregunta 1")
+import pandas
 
 
 def pregunta1():
@@ -13,13 +13,9 @@ def pregunta1():
     for n in range(150):
         if n%7==0:
             total = total + n
-    print(total)
+    return total
         
     
-pregunta1()   
-
-print("") 
-print("Pregunta 2")
 
 def pregunta2():
     lista = []
@@ -27,44 +23,31 @@ def pregunta2():
     while n > 1:
            n = n//2
            lista.append(n)
-    print(lista)
+    return lista
     
-pregunta2()    
+  
 
 
 
 def pregunta3(a,b,c):
     if(isinstance(a,str) and isinstance(b,str) and isinstance(c,str)):
-        return print(a +" " + b + " " + c)
-    return print(None)
-    
-print("")
-print("Pregunta 3")
-pregunta3("The","Rolling","Stones")    
-pregunta3(1,"Rolling","Stones")    
-pregunta3(0,"Rolling","Stones") 
+        return a +" " + b + " " + c
+    return None
 
 
 def isograma(string):
     if type(string) is not str:
-        return print(str(string) + "No es un string")
+        return str(string) + "No es un string"
                 
     if(len(string)==0):
-        return print(string + " es isograma")
+        return string + " es isograma"
     letras = set()
     for char in string.lower():
         if char in letras:
-            return print(string + " no es isograma")
+            return string + " no es isograma"
         else:
             letras.add(char)
-    return print(string + " es isograma")
-        
-print(" ")        
-print("Pregunta 4")
-
-isograma("Pregunta")
-isograma("abcdef")
-isograma("isOgrAma")
+    return string + " es isograma"
 
     
 def esprimo(n):
@@ -79,18 +62,6 @@ def esprimo(n):
     else:
         return False
         
-  
-print(" ")      
-print("Pregunta 5")
-   
-print(esprimo(999331))
-print(esprimo(1))
-print(esprimo(88888888))
-        
-
-
-print(" ")      
-print("Pregunta 6")
 
 
 def smallprime(lista):
@@ -106,17 +77,9 @@ def smallprime(lista):
              if esprimo(n) == True:
                 if n < num:
                     num = n
-        print("" ,num)
+        return num
             
-                
-smallprime([1,2,3,4,5,6,7,8,9,10])            
-smallprime([2,3,5,7,11,13,17,19])            
-smallprime([100,200,300,500,400,17,2])
 
-
-
-print(" ")
-print("Pregunta 7")
 
 def pregunta7(c):
     if type(c) is not str:
@@ -129,14 +92,6 @@ def pregunta7(c):
                 nuevostring = nuevostring + char
         return nuevostring
 
-print(pregunta7("Hola Mundo"))
-print(pregunta7("Vocales"))
-print(pregunta7("aeÑiou"))
-
-         
-
-print("")
-print("Pregunta 8")
 
 def pregunta8(vec,n):
     if type(vec) is not list:
@@ -154,14 +109,9 @@ def pregunta8(vec,n):
 
         porcen["Menores o iguales"] = menorigual / len(vec)
         porcen["Mayores"] = mayor / len(vec)
-        print(porcen)
+        return porcen
 
-pregunta8([1,2,3,4,5,2,3,4,5,5,5,6],2)
-pregunta8([1,2,3,2],2)
-pregunta8([1,2,3,2,2],2)
 
-print(" ")
-print("Pregunta 9")
 
 def collatz(number):
     if number % 2 == 0:
@@ -179,27 +129,42 @@ def pregunta9(n):
             vec.append(n)
             n = collatz(int(n))
         vec.append(n)
-    print(vec)
+    return vec
 
-pregunta9(3)
-pregunta9(12)
-pregunta9(40)
-
-
-print("")
 
 def cuadrada (m): return all (len (row) == len (m) for row in m)
 
-def diagonal(m):
-    if not cuadrada(m):
+def diagonal(matrix):
+    if not cuadrada(matrix):
         return False
-    else:
-        sum_2_diagonal = 0
-        for x in range(0, len(m)):
-            for y in range(0, len(m)):
-                if x + y == m - 1:
-                    sum_2_diagonal = sum_2_diagonal + m[x][y]
-        return print(sum_2_diagonal)
+    
+    m = len(matrix)
+    if m == 1: return matrix[0][0]
+    count = 0
+    for i in range(m):
+      count += matrix[i][i]
+    return count
 
-diagonal(numpy.matrix([[0,20,6],[4,12,48],[-8,-5,-16]]))
+def estadisticasCol(DF,nc):
+    
+    media = numpy.mean(DF.iloc[:,nc])
+    mediana = numpy.median(DF.iloc[:,nc])
+    deviacion = numpy.std(DF.iloc[:,nc])
+    varianza = numpy.var(DF.iloc[:,nc])
+    maximo = numpy.max(DF.iloc[:,nc])
+    minimo = numpy.min(DF.iloc[:,nc])
+    return {'Variable' : DF.columns.values[nc],
+            'Media' : media,
+            'Mediana' : mediana,
+            'DesEst' : deviacion,
+            'Varianza' : varianza,
+            'Maximo' : maximo,
+            'Minimo' : minimo}
+
+
+
+
+
+def correlacionCols(DF,col1,col2):
+    return numpy.correlate(numpy.ravel(DF.iloc[:,col1]),numpy.ravel(DF.iloc[:,col2]))
 
